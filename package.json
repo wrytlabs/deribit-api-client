@@ -1,0 +1,29 @@
+{
+	"name": "@wrytlabs/deribit-api-client",
+	"version": "1.0.0",
+	"repository": "https://github.com/wrytlabs/deribit-api-client.git",
+	"bugs": {
+		"url": "https://github.com/wrytlabs/deribit-api-client/issues"
+	},
+	"homepage": "https://github.com/wrytlabs/deribit-api-client#readme",
+	"author": "samclassix <samclassix@proton.me>",
+	"description": "light websocket client to connect to the deribit api, including types.",
+	"private": false,
+	"license": "MIT",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"build": "tsc",
+		"start": "node build/index.js",
+		"dev": "yarn tsc-watch --onCompilationComplete \"node ./build/index.js\"",
+		"npm:build": "tsup",
+		"npm:publish": "npm publish --access public"
+	},
+	"devDependencies": {
+		"@types/node": "^22.10.2",
+		"tsc-watch": "^6.2.1",
+		"tsup": "^8.3.5",
+		"typescript": "^5.7.2"
+	}
+}
