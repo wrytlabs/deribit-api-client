@@ -1,3 +1,10 @@
-export const message: string = 'asdf';
+import { WebSocketClient } from './client/WebSocketClient';
+import { WebSocketClientOptions } from './client/WebSocketClient.types';
 
-console.log(message + 'asdf');
+// function exports
+export function createWebSocketClient(options: WebSocketClientOptions): WebSocketClient {
+	return new WebSocketClient(options);
+}
+
+// type exports
+export * from './client/WebSocketClient.types';
