@@ -1,24 +1,24 @@
 import { WalletMapping } from '../wallet/wallet.mapping';
 import { AuthenticationMapping } from '../authentication/authentication.mapping';
-import { RequestQuery, DeribitApiClientOptions, DeribitApiGrantType } from './client.types';
+import { RequestQuery, ClientOptions, GrantType } from './client.types';
 
 export class DeribitApiClient {
 	// class extentions
-	public readonly type: DeribitApiGrantType;
+	public readonly type: GrantType;
 	public readonly authentication: AuthenticationMapping;
 	public readonly wallet: WalletMapping;
 
 	// ---------------------------------------------------------------------------------------
 
 	// core features
-	private options: DeribitApiClientOptions;
+	private options: ClientOptions;
 	private socket: WebSocket | undefined;
 	private requests: Map<number, Function>;
 	private id: number;
 
 	// ---------------------------------------------------------------------------------------
 
-	constructor(options: DeribitApiClientOptions) {
+	constructor(options: ClientOptions) {
 		this.type = options.type;
 		this.authentication = new AuthenticationMapping(this);
 		this.wallet = new WalletMapping(this);
@@ -55,12 +55,12 @@ export class DeribitApiClient {
 
 		// auto auth
 		this.socket.onopen = (event) => {
-			if (this.options.type === DeribitApiGrantType.client_credentials) {
+			if (this.options.type === GrantType.client_credentials) {
 				this.authentication
 					.auth({
 						client_id: this.options.clientId,
 						client_secret: this.options.clientSecret,
-						grant_type: DeribitApiGrantType.client_credentials,
+						grant_type: GrantType.client_credentials,
 					})
 					.then((data) => {
 						if ('error' in data) {
@@ -86,7 +86,7 @@ export class DeribitApiClient {
 			this.id += 1;
 
 			// check if auth is needed
-			if (method.split('/').includes('private') && this.type === DeribitApiGrantType.client_public) {
+			if (method.split('/').includes('private') && this.type === GrantType.client_public) {
 				reject({
 					jsonrpc: '2.0',
 					id: requestId,

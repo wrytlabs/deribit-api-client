@@ -1,9 +1,14 @@
 import { DeribitApiClient } from './client/client.core';
-import { DeribitApiClientOptions } from './client/client.types';
+import { ClientOptions, ClientPublicOptions } from './client/client.types';
+import { ClientPublicDefault } from './client/general.types';
 
-// function exports
-export function createDeribitClient(options: DeribitApiClientOptions): DeribitApiClient {
+// crete client
+export function createDeribitClient(options: ClientOptions): DeribitApiClient {
 	return new DeribitApiClient(options);
+}
+
+export function createDeribitClientPublic(options?: ClientPublicOptions): DeribitApiClient {
+	return new DeribitApiClient(options ?? ClientPublicDefault);
 }
 
 // type exports

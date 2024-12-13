@@ -1,29 +1,29 @@
 import { Currency } from '../client/general.types';
 
-export enum ApiWalletGetDepositsResultState {
-	pending,
-	completed,
-	rejected,
-	replaced,
-}
-
-export type ApiWalletGetDepositsParams = {
+export type WalletGetDepositsParams = {
 	currency: Currency;
 	count?: number;
 	offset?: number;
 };
 
-export type ApiWalletGetDepositsResult = {
+export type WalletGetDepositsResult = {
 	count: number;
-	data: ApiWalletGetDepositsResultItem[];
+	data: WalletGetDepositsResultItem[];
 };
 
-export type ApiWalletGetDepositsResultItem = {
+export type WalletGetDepositsResultItem = {
 	address: string;
 	amount: number;
 	currency: Currency | string;
 	received_timestamp: number;
-	state: ApiWalletGetDepositsResultState;
+	state: WalletGetDepositsResultState;
 	transaction_id: string;
 	updated_timestamp: number;
 };
+
+export enum WalletGetDepositsResultState {
+	pending = 'pending',
+	completed = 'completed',
+	rejected = 'rejected',
+	replaced = 'replaced',
+}

@@ -1,8 +1,8 @@
 import { DeribitApiClient } from '../client/client.core';
 import { RequestQuery } from '../client/client.types';
-import { ApiWalletGetDepositsParams, ApiWalletGetDepositsResult } from './wallet.get_deposits';
-import { ApiWalletGetTransfersParams, ApiWalletGetTransfersResult } from './wallet.get_transfers';
-import { ApiWalletGetWithdrawalsParams, ApiWalletGetWithdrawalsResult } from './wallet.get_withdrawals';
+import { WalletGetDepositsParams, WalletGetDepositsResult } from './wallet.get_deposits';
+import { WalletGetTransfersParams, WalletGetTransfersResult } from './wallet.get_transfers';
+import { WalletGetWithdrawalsParams, WalletGetWithdrawalsResult } from './wallet.get_withdrawals';
 
 export class WalletMapping {
 	private readonly client: DeribitApiClient;
@@ -12,10 +12,10 @@ export class WalletMapping {
 	}
 
 	public async getDeposits(
-		params: ApiWalletGetDepositsParams,
-		modifier?: ((data: RequestQuery<ApiWalletGetDepositsResult>) => any) | undefined
-	): Promise<RequestQuery<ApiWalletGetDepositsResult>> {
-		return await this.client.send<ApiWalletGetDepositsParams, ApiWalletGetDepositsResult>(
+		params: WalletGetDepositsParams,
+		modifier?: ((data: RequestQuery<WalletGetDepositsResult>) => any) | undefined
+	): Promise<RequestQuery<WalletGetDepositsResult>> {
+		return await this.client.send<WalletGetDepositsParams, WalletGetDepositsResult>(
 			'/private/get_deposits',
 			params,
 			modifier
@@ -23,10 +23,10 @@ export class WalletMapping {
 	}
 
 	public async getTransfers(
-		params: ApiWalletGetTransfersParams,
-		modifier?: ((data: RequestQuery<ApiWalletGetTransfersResult>) => any) | undefined
-	): Promise<RequestQuery<ApiWalletGetTransfersResult>> {
-		return await this.client.send<ApiWalletGetTransfersParams, ApiWalletGetTransfersResult>(
+		params: WalletGetTransfersParams,
+		modifier?: ((data: RequestQuery<WalletGetTransfersResult>) => any) | undefined
+	): Promise<RequestQuery<WalletGetTransfersResult>> {
+		return await this.client.send<WalletGetTransfersParams, WalletGetTransfersResult>(
 			'/private/get_transfers',
 			params,
 			modifier
@@ -34,10 +34,10 @@ export class WalletMapping {
 	}
 
 	public async getWithdrawals(
-		params: ApiWalletGetWithdrawalsParams,
-		modifier?: ((data: RequestQuery<ApiWalletGetWithdrawalsResult>) => any) | undefined
-	): Promise<RequestQuery<ApiWalletGetWithdrawalsResult>> {
-		return await this.client.send<ApiWalletGetWithdrawalsParams, ApiWalletGetWithdrawalsResult>(
+		params: WalletGetWithdrawalsParams,
+		modifier?: ((data: RequestQuery<WalletGetWithdrawalsResult>) => any) | undefined
+	): Promise<RequestQuery<WalletGetWithdrawalsResult>> {
+		return await this.client.send<WalletGetWithdrawalsParams, WalletGetWithdrawalsResult>(
 			'/private/get_withdrawals',
 			params,
 			modifier

@@ -1,4 +1,4 @@
-export enum DeribitApiGrantType {
+export enum GrantType {
 	client_public = 'client_public',
 	client_credentials = 'client_credentials',
 	client_signature = 'client_signature',
@@ -7,15 +7,15 @@ export enum DeribitApiGrantType {
 
 // ---------------------------------------------------------------------------------------
 
-export type DeribitApiClientOptions = DeribitApiClientPublicOptions | DeribitApiClientCredentialsOptions;
+export type ClientOptions = ClientPublicOptions | ClientCredentialsOptions;
 
-export type DeribitApiClientPublicOptions = {
-	type: DeribitApiGrantType.client_public;
+export type ClientPublicOptions = {
+	type: GrantType.client_public;
 	baseUrl: string;
 };
 
-export type DeribitApiClientCredentialsOptions = {
-	type: DeribitApiGrantType.client_credentials;
+export type ClientCredentialsOptions = {
+	type: GrantType.client_credentials;
 	baseUrl: string;
 	clientId: string;
 	clientSecret: string;
