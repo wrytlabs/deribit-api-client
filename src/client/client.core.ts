@@ -1,18 +1,20 @@
 import { RequestQuery, ClientOptions, GrantType } from './client.types';
-import { AuthenticationMapping } from '../authentication/authentication.mapping';
-import { WalletMapping } from '../wallet/wallet.mapping';
 import {
 	ErrorClientNotReady,
 	ErrorClientRestrictedToPublic,
 	ErrorClientRequestTimeout,
 	ErrorClientRestrictedToScope,
 } from './client.error';
+import { AuthenticationMapping } from '../authentication/authentication.mapping';
+import { WalletMapping } from '../wallet/wallet.mapping';
+import { MarketMapping } from '../market/market.mapping';
 
 export class DeribitApiClient {
 	// class extentions
 	public readonly type: GrantType;
 	public readonly authentication: AuthenticationMapping;
 	public readonly wallet: WalletMapping;
+	public readonly market: MarketMapping;
 
 	// ---------------------------------------------------------------------------------------
 
@@ -29,6 +31,7 @@ export class DeribitApiClient {
 		this.type = options.type;
 		this.authentication = new AuthenticationMapping(this);
 		this.wallet = new WalletMapping(this);
+		this.market = new MarketMapping(this);
 
 		this.socket = undefined;
 		this.options = options;

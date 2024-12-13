@@ -14,7 +14,14 @@ export function createDeribitClientPublic(options?: ClientPublicOptions): Deribi
 // type exports
 export * from './client/general.types';
 export * from './client/client.types';
+
+export * from './market/market.get_book_summary_by_currency';
+export * from './market/market.get_book_summary_by_instrument';
+export * from './market/market.get_currencies';
+export * from './market/market.get_delivery_prices';
+
 export * from './authentication/authentication.auth';
+
 export * from './wallet/wallet.cancel_transfer_by_id';
 export * from './wallet/wallet.cancel_withdrawal';
 export * from './wallet/wallet.create_deposit_address';
