@@ -1,6 +1,6 @@
 {
 	"name": "@wrytlabs/deribit-api-client",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"repository": "https://github.com/wrytlabs/deribit-api-client.git",
 	"bugs": {
 		"url": "https://github.com/wrytlabs/deribit-api-client/issues"
@@ -16,13 +16,11 @@
 	"scripts": {
 		"build": "tsc",
 		"start": "node build/index.js",
-		"dev": "yarn tsc-watch --onCompilationComplete \"node ./build/index.js\"",
 		"npm:build": "tsup",
 		"npm:publish": "npm publish --access public"
 	},
 	"devDependencies": {
 		"@types/node": "^22.10.2",
-		"tsc-watch": "^6.2.1",
 		"tsup": "^8.3.5",
 		"typescript": "^5.7.2"
 	}
