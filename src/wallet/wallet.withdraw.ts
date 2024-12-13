@@ -6,10 +6,10 @@ export type WalletWithdrawParams = {
 	currency: Currency;
 	address: string;
 	amount: number;
-	priority?: WalletWithdrawParamsPriority;
+	priority?: WalletWithdrawPriority;
 };
 
-export enum WalletWithdrawParamsPriority {
+export enum WalletWithdrawPriority {
 	insane = 'insane',
 	extreme_high = 'extreme_high',
 	very_high = 'very_high',
@@ -30,12 +30,12 @@ export type WalletWithdrawResult = {
 	fee: number;
 	id: number;
 	priority: number;
-	state: WalletWithdrawResultState;
+	state: WalletWithdrawState;
 	transaction_id: string;
 	updated_timestamp: number;
 };
 
-export enum WalletWithdrawResultState {
+export enum WalletWithdrawState {
 	unconfirmed = 'unconfirmed',
 	confirmed = 'confirmed',
 	cancelled = 'cancelled',

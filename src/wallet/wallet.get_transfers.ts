@@ -12,22 +12,22 @@ export type WalletGetTransfersParams = {
 
 export type WalletGetTransfersResult = {
 	count: number;
-	data: WalletGetTransfersResultItem[];
+	data: WalletGetTransfersItem[];
 };
 
-export type WalletGetTransfersResultItem = {
+export type WalletGetTransfersItem = {
 	amount: number;
 	created_timestamp: number;
 	currency: string;
 	direction: string;
 	id: number;
 	other_side: string;
-	state: WalletGetTransfersResultState;
+	state: WalletGetTransfersState;
 	type: string;
 	updated_timestamp: number;
 };
 
-export enum WalletGetTransfersResultState {
+export enum WalletGetTransfersState {
 	prepared = 'prepared',
 	confirmed = 'confirmed',
 	cancelled = 'cancelled',

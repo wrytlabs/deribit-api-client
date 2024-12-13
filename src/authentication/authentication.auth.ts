@@ -6,6 +6,8 @@ export type AuthenticationAuthParams = {
 	grant_type: GrantType.client_credentials;
 	client_id: string;
 	client_secret: string;
+	state?: string;
+	scope?: string;
 };
 
 // ---------------------------------------------------------------------------------------

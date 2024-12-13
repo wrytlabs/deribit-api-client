@@ -12,20 +12,20 @@ export type WalletGetDepositsParams = {
 
 export type WalletGetDepositsResult = {
 	count: number;
-	data: WalletGetDepositsResultItem[];
+	data: WalletGetDepositsItem[];
 };
 
-export type WalletGetDepositsResultItem = {
+export type WalletGetDepositsItem = {
 	address: string;
 	amount: number;
 	currency: Currency | string;
 	received_timestamp: number;
-	state: WalletGetDepositsResultState;
+	state: WalletGetDepositsState;
 	transaction_id: string;
 	updated_timestamp: number;
 };
 
-export enum WalletGetDepositsResultState {
+export enum WalletGetDepositsState {
 	pending = 'pending',
 	completed = 'completed',
 	rejected = 'rejected',

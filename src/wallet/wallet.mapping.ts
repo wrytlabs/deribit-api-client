@@ -1,6 +1,8 @@
 import { DeribitApiClient } from '../client/client.core';
 import { RequestQuery } from '../client/client.types';
 import { WalletCancelTransferByIdParams, WalletCancelTransferByIdResult } from './wallet.cancel_transfer_by_id';
+import { WalletCancelWithdrawalParams, WalletCancelWithdrawalResult } from './wallet.cancel_withdrawal';
+import { WalletCreateDepositAddressParams, WalletCreateDepositAddressResult } from './wallet.create_deposit_address';
 import { WalletGetDepositsParams, WalletGetDepositsResult } from './wallet.get_deposits';
 import { WalletGetTransfersParams, WalletGetTransfersResult } from './wallet.get_transfers';
 import { WalletGetWithdrawalsParams, WalletGetWithdrawalsResult } from './wallet.get_withdrawals';
@@ -19,6 +21,30 @@ export class WalletMapping {
 	): Promise<RequestQuery<WalletCancelTransferByIdResult>> {
 		return await this.client.send<WalletCancelTransferByIdParams, WalletCancelTransferByIdResult>(
 			'/private/cancel_transfer_by_id',
+			['wallet:read_write'],
+			params,
+			modifier
+		);
+	}
+
+	public async cancelWithdrawal(
+		params: WalletCancelWithdrawalParams,
+		modifier?: ((data: RequestQuery<WalletCancelWithdrawalResult>) => any) | undefined
+	): Promise<RequestQuery<WalletCancelWithdrawalResult>> {
+		return await this.client.send<WalletCancelWithdrawalParams, WalletCancelWithdrawalResult>(
+			'/private/cancel_withdrawal',
+			['wallet:read_write'],
+			params,
+			modifier
+		);
+	}
+
+	public async createDepositaddress(
+		params: WalletCreateDepositAddressParams,
+		modifier?: ((data: RequestQuery<WalletCreateDepositAddressResult>) => any) | undefined
+	): Promise<RequestQuery<WalletCreateDepositAddressResult>> {
+		return await this.client.send<WalletCreateDepositAddressParams, WalletCreateDepositAddressResult>(
+			'/private/wallet.create_deposit_address',
 			['wallet:read_write'],
 			params,
 			modifier
