@@ -5,16 +5,24 @@ import {
 	ErrorClientRequestTimeout,
 	ErrorClientRestrictedToScope,
 } from './client.error';
+import { AccountMapping } from '../account/account.mapping';
 import { AuthenticationMapping } from '../authentication/authentication.mapping';
-import { WalletMapping } from '../wallet/wallet.mapping';
 import { MarketMapping } from '../market/market.mapping';
+import { SessionMapping } from '../session/session.mapping';
+import { SubscriptionMapping } from '../subscription/subscription.mapping';
+import { TradingMapping } from '../trading/trading.mapping';
+import { WalletMapping } from '../wallet/wallet.mapping';
 
 export class DeribitApiClient {
 	// class extentions
 	public readonly type: GrantType;
+	public readonly account: AccountMapping;
 	public readonly authentication: AuthenticationMapping;
-	public readonly wallet: WalletMapping;
 	public readonly market: MarketMapping;
+	public readonly session: SessionMapping;
+	public readonly subscription: SubscriptionMapping;
+	public readonly trading: TradingMapping;
+	public readonly wallet: WalletMapping;
 
 	// ---------------------------------------------------------------------------------------
 
@@ -29,9 +37,13 @@ export class DeribitApiClient {
 
 	constructor(options: ClientOptions) {
 		this.type = options.type;
+		this.account = new AccountMapping(this);
 		this.authentication = new AuthenticationMapping(this);
-		this.wallet = new WalletMapping(this);
 		this.market = new MarketMapping(this);
+		this.session = new SessionMapping(this);
+		this.subscription = new SubscriptionMapping(this);
+		this.trading = new TradingMapping(this);
+		this.wallet = new WalletMapping(this);
 
 		this.socket = undefined;
 		this.options = options;
