@@ -12,3 +12,4 @@ export * from './client/client.types';
 export * from './authentication/authentication.auth';
 export * from './wallet/wallet.get_deposits';
 export * from './wallet/wallet.get_transfers';
+export * from './wallet/wallet.get_withdrawals';

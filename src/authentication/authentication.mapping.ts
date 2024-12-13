@@ -13,6 +13,10 @@ export class AuthenticationMapping {
 		params: ApiAuthenticationAuthParams,
 		modifier?: ((data: RequestQuery<ApiAuthenticationAuthResult>) => any) | undefined
 	): Promise<RequestQuery<ApiAuthenticationAuthResult>> {
-		return await this.client.send<ApiAuthenticationAuthParams, ApiAuthenticationAuthResult>('/public/auth', params, modifier);
+		return await this.client.send<ApiAuthenticationAuthParams, ApiAuthenticationAuthResult>(
+			'/public/auth',
+			params,
+			modifier
+		);
 	}
 }
