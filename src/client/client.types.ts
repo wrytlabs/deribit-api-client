@@ -48,3 +48,29 @@ export type RequestQueryError = {
 	usIn: number;
 	usOut: number;
 };
+
+export type RateLimit = {
+	rate: number;
+	burst: number;
+};
+
+export type ApiLimit = {
+	timeframe: number;
+	rate: number;
+};
+
+export type AccountLimits = {
+	matching_engine: {
+		block_rfq_maker: RateLimit;
+		cancel_all: RateLimit;
+		guaranteed_mass_quotes: RateLimit;
+		maximum_mass_quotes: RateLimit;
+		maximum_quotes: RateLimit;
+		spot: RateLimit;
+		trading: {
+			total: RateLimit;
+		};
+	};
+	limits_per_currency: boolean;
+	non_matching_engine: RateLimit;
+};

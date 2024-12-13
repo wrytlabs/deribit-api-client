@@ -15,6 +15,11 @@ export function createDeribitClientPublic(options?: ClientPublicOptions): Deribi
 export * from './client/general.types';
 export * from './client/client.types';
 
+export * from './account/account.get_account_summaries';
+export * from './account/account.get_account_summary';
+export * from './account/account.get_portfolio_margins';
+export * from './account/account.get_position';
+
 export * from './market/market.get_book_summary_by_currency';
 export * from './market/market.get_book_summary_by_instrument';
 export * from './market/market.get_currencies';

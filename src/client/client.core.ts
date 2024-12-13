@@ -15,7 +15,6 @@ import { WalletMapping } from '../wallet/wallet.mapping';
 
 export class DeribitApiClient {
 	// class extentions
-	public readonly type: GrantType;
 	public readonly account: AccountMapping;
 	public readonly authentication: AuthenticationMapping;
 	public readonly market: MarketMapping;
@@ -27,8 +26,9 @@ export class DeribitApiClient {
 	// ---------------------------------------------------------------------------------------
 
 	// core features
+	private readonly options: ClientOptions;
+	public readonly type: GrantType;
 	private socket: WebSocket | undefined;
-	private options: ClientOptions;
 	private scope: string[];
 	private requests: Map<number, Function>;
 	private id: number;
@@ -36,7 +36,6 @@ export class DeribitApiClient {
 	// ---------------------------------------------------------------------------------------
 
 	constructor(options: ClientOptions) {
-		this.type = options.type;
 		this.account = new AccountMapping(this);
 		this.authentication = new AuthenticationMapping(this);
 		this.market = new MarketMapping(this);
@@ -45,8 +44,9 @@ export class DeribitApiClient {
 		this.trading = new TradingMapping(this);
 		this.wallet = new WalletMapping(this);
 
-		this.socket = undefined;
 		this.options = options;
+		this.type = options.type;
+		this.socket = undefined;
 		this.scope = [];
 		this.requests = new Map();
 		this.id = 0;
