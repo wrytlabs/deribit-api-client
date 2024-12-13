@@ -1,11 +1,11 @@
-import { WebSocketClient } from '../client/WebSocketClient';
-import { RequestQuery } from '../client/WebSocketClient.types';
+import { DeribitApiClient } from '../client/DeribitApiClient';
+import { RequestQuery } from '../client/DeribitApiClient.types';
 import { ApiPublicAuthParams, ApiPublicAuthResult } from './public.auth';
 
 export class PublicMapping {
-	private readonly client: WebSocketClient;
+	private readonly client: DeribitApiClient;
 
-	constructor(_connector: WebSocketClient) {
+	constructor(_connector: DeribitApiClient) {
 		this.client = _connector;
 	}
 

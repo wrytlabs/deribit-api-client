@@ -1,10 +1,11 @@
-import { WebSocketClient } from './client/WebSocketClient';
-import { WebSocketClientOptions } from './client/WebSocketClient.types';
+import { DeribitApiClient } from './client/DeribitApiClient';
+import { DeribitApiClientOptions } from './client/DeribitApiClient.types';
 
 // function exports
-export function createWebSocketClient(options: WebSocketClientOptions): WebSocketClient {
-	return new WebSocketClient(options);
+export function createDeribitClient(options: DeribitApiClientOptions): DeribitApiClient {
+	return new DeribitApiClient(options);
 }
 
 // type exports
-export * from './client/WebSocketClient.types';
+export * from './client/DeribitApiClient.types';
+export * from './public/public.auth';

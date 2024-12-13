@@ -1,4 +1,4 @@
-export enum WebSocketGrantType {
+export enum DeribitApiGrantType {
 	client_public = 'client_public',
 	client_credentials = 'client_credentials',
 	client_signature = 'client_signature',
@@ -7,15 +7,15 @@ export enum WebSocketGrantType {
 
 // ---------------------------------------------------------------------------------------
 
-export type WebSocketClientOptions = WebSocketClientPublicOptions | WebSocketClientCredentialsOptions;
+export type DeribitApiClientOptions = DeribitApiClientPublicOptions | DeribitApiClientCredentialsOptions;
 
-export type WebSocketClientPublicOptions = {
-	type: WebSocketGrantType.client_public;
+export type DeribitApiClientPublicOptions = {
+	type: DeribitApiGrantType.client_public;
 	baseUrl: string;
 };
 
-export type WebSocketClientCredentialsOptions = {
-	type: WebSocketGrantType.client_credentials;
+export type DeribitApiClientCredentialsOptions = {
+	type: DeribitApiGrantType.client_credentials;
 	baseUrl: string;
 	clientId: string;
 	clientSecret: string;
@@ -23,19 +23,7 @@ export type WebSocketClientCredentialsOptions = {
 
 // ---------------------------------------------------------------------------------------
 
-export type RequestQuery<ApiResult> = {
-	jsonrpc: `${number}.${number}`;
-	id: number;
-	result?: ApiResult;
-	error?: {
-		code: number;
-		message: string;
-	};
-	testnet: boolean;
-	usDiff: number;
-	usIn: number;
-	usOut: number;
-};
+export type RequestQuery<ApiResult> = RequestQueryReceived<ApiResult> | RequestQueryError;
 
 export type RequestQueryReceived<ApiResult> = {
 	jsonrpc: `${number}.${number}`;

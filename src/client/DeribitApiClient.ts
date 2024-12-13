@@ -1,7 +1,7 @@
 import { PublicMapping } from '../public/public.mapping';
-import { RequestQuery, WebSocketClientOptions, WebSocketGrantType } from './WebSocketClient.types';
+import { RequestQuery, DeribitApiClientOptions, DeribitApiGrantType } from './DeribitApiClient.types';
 
-export class WebSocketClient {
+export class DeribitApiClient {
 	// class extentions
 	private readonly public: PublicMapping;
 	// private readonly private: PrivateMapping;
@@ -9,14 +9,14 @@ export class WebSocketClient {
 	// ---------------------------------------------------------------------------------------
 
 	// core features
-	private options: WebSocketClientOptions;
+	private options: DeribitApiClientOptions;
 	private socket: WebSocket | undefined;
 	private requests: Map<number, Function>;
 	private id: number;
 
 	// ---------------------------------------------------------------------------------------
 
-	constructor(options: WebSocketClientOptions) {
+	constructor(options: DeribitApiClientOptions) {
 		this.public = new PublicMapping(this);
 
 		this.socket = undefined;
@@ -51,15 +51,19 @@ export class WebSocketClient {
 
 		// auto auth
 		this.socket.onopen = (event) => {
-			if (this.options.type === WebSocketGrantType.client_credentials) {
+			if (this.options.type === DeribitApiGrantType.client_credentials) {
 				this.public
 					.auth({
 						client_id: this.options.clientId,
 						client_secret: this.options.clientSecret,
-						grant_type: WebSocketGrantType.client_credentials,
+						grant_type: DeribitApiGrantType.client_credentials,
 					})
-					.then((result) => {
-						console.log(result?.error ?? result?.result?.scope);
+					.then((data) => {
+						if ('error' in data) {
+							console.log(data.error);
+						} else {
+							console.log(data.result.scope);
+						}
 					})
 					.catch(console.log);
 			}
