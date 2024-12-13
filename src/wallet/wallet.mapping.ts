@@ -19,11 +19,11 @@ export class WalletMapping {
 		this.client = _connector;
 	}
 
-	public async cancelTransferById(
+	public async cancelTransferById<Modifier = RequestQuery<WalletCancelTransferByIdResult>>(
 		params: WalletCancelTransferByIdParams,
-		modifier?: ((data: RequestQuery<WalletCancelTransferByIdResult>) => any) | undefined
-	): Promise<RequestQuery<WalletCancelTransferByIdResult>> {
-		return await this.client.send<WalletCancelTransferByIdParams, WalletCancelTransferByIdResult>(
+		modifier?: ((data: RequestQuery<WalletCancelTransferByIdResult>) => Modifier) | undefined
+	): Promise<Modifier> {
+		return await this.client.send<WalletCancelTransferByIdParams, WalletCancelTransferByIdResult, Modifier>(
 			'/private/cancel_transfer_by_id',
 			['wallet:read_write'],
 			params,
@@ -31,11 +31,11 @@ export class WalletMapping {
 		);
 	}
 
-	public async cancelWithdrawal(
+	public async cancelWithdrawal<Modifier = RequestQuery<WalletCancelWithdrawalResult>>(
 		params: WalletCancelWithdrawalParams,
-		modifier?: ((data: RequestQuery<WalletCancelWithdrawalResult>) => any) | undefined
-	): Promise<RequestQuery<WalletCancelWithdrawalResult>> {
-		return await this.client.send<WalletCancelWithdrawalParams, WalletCancelWithdrawalResult>(
+		modifier?: ((data: RequestQuery<WalletCancelWithdrawalResult>) => Modifier) | undefined
+	): Promise<Modifier> {
+		return await this.client.send<WalletCancelWithdrawalParams, WalletCancelWithdrawalResult, Modifier>(
 			'/private/cancel_withdrawal',
 			['wallet:read_write'],
 			params,
@@ -43,11 +43,11 @@ export class WalletMapping {
 		);
 	}
 
-	public async createDepositaddress(
+	public async createDepositaddress<Modifier = RequestQuery<WalletCreateDepositAddressResult>>(
 		params: WalletCreateDepositAddressParams,
-		modifier?: ((data: RequestQuery<WalletCreateDepositAddressResult>) => any) | undefined
-	): Promise<RequestQuery<WalletCreateDepositAddressResult>> {
-		return await this.client.send<WalletCreateDepositAddressParams, WalletCreateDepositAddressResult>(
+		modifier?: ((data: RequestQuery<WalletCreateDepositAddressResult>) => Modifier) | undefined
+	): Promise<Modifier> {
+		return await this.client.send<WalletCreateDepositAddressParams, WalletCreateDepositAddressResult, Modifier>(
 			'/private/create_deposit_address',
 			['wallet:read_write'],
 			params,
@@ -55,23 +55,22 @@ export class WalletMapping {
 		);
 	}
 
-	public async getCurrentDepositaddress(
+	public async getCurrentDepositaddress<Modifier = RequestQuery<WalletGetCurrentDepositAddressResult>>(
 		params: WalletGetCurrentDepositAddressParams,
-		modifier?: ((data: RequestQuery<WalletGetCurrentDepositAddressResult>) => any) | undefined
-	): Promise<RequestQuery<WalletGetCurrentDepositAddressResult>> {
-		return await this.client.send<WalletGetCurrentDepositAddressParams, WalletGetCurrentDepositAddressResult>(
-			'/private/get_current_deposit_address',
-			['wallet:read'],
-			params,
-			modifier
-		);
+		modifier?: ((data: RequestQuery<WalletGetCurrentDepositAddressResult>) => Modifier) | undefined
+	): Promise<Modifier> {
+		return await this.client.send<
+			WalletGetCurrentDepositAddressParams,
+			WalletGetCurrentDepositAddressResult,
+			Modifier
+		>('/private/get_current_deposit_address', ['wallet:read'], params, modifier);
 	}
 
-	public async getDeposits(
+	public async getDeposits<Modifier = RequestQuery<WalletGetDepositsResult>>(
 		params: WalletGetDepositsParams,
-		modifier?: ((data: RequestQuery<WalletGetDepositsResult>) => any) | undefined
-	): Promise<RequestQuery<WalletGetDepositsResult>> {
-		return await this.client.send<WalletGetDepositsParams, WalletGetDepositsResult>(
+		modifier?: ((data: RequestQuery<WalletGetDepositsResult>) => Modifier) | undefined
+	): Promise<Modifier> {
+		return await this.client.send<WalletGetDepositsParams, WalletGetDepositsResult, Modifier>(
 			'/private/get_deposits',
 			['wallet:read'],
 			params,
@@ -79,11 +78,11 @@ export class WalletMapping {
 		);
 	}
 
-	public async getTransfers(
+	public async getTransfers<Modifier = RequestQuery<WalletGetTransfersResult>>(
 		params: WalletGetTransfersParams,
-		modifier?: ((data: RequestQuery<WalletGetTransfersResult>) => any) | undefined
-	): Promise<RequestQuery<WalletGetTransfersResult>> {
-		return await this.client.send<WalletGetTransfersParams, WalletGetTransfersResult>(
+		modifier?: ((data: RequestQuery<WalletGetTransfersResult>) => Modifier) | undefined
+	): Promise<Modifier> {
+		return await this.client.send<WalletGetTransfersParams, WalletGetTransfersResult, Modifier>(
 			'/private/get_transfers',
 			['wallet:read'],
 			params,
@@ -91,11 +90,11 @@ export class WalletMapping {
 		);
 	}
 
-	public async getWithdrawals(
+	public async getWithdrawals<Modifier = RequestQuery<WalletGetWithdrawalsResult>>(
 		params: WalletGetWithdrawalsParams,
-		modifier?: ((data: RequestQuery<WalletGetWithdrawalsResult>) => any) | undefined
-	): Promise<RequestQuery<WalletGetWithdrawalsResult>> {
-		return await this.client.send<WalletGetWithdrawalsParams, WalletGetWithdrawalsResult>(
+		modifier?: ((data: RequestQuery<WalletGetWithdrawalsResult>) => Modifier) | undefined
+	): Promise<Modifier> {
+		return await this.client.send<WalletGetWithdrawalsParams, WalletGetWithdrawalsResult, Modifier>(
 			'/private/get_withdrawals',
 			['wallet:read'],
 			params,
@@ -103,11 +102,11 @@ export class WalletMapping {
 		);
 	}
 
-	public async withdraw(
+	public async withdraw<Modifier = RequestQuery<WalletWithdrawResult>>(
 		params: WalletWithdrawParams,
-		modifier?: ((data: RequestQuery<WalletWithdrawResult>) => any) | undefined
-	): Promise<RequestQuery<WalletWithdrawResult>> {
-		return await this.client.send<WalletWithdrawParams, WalletWithdrawResult>(
+		modifier?: ((data: RequestQuery<WalletWithdrawResult>) => Modifier) | undefined
+	): Promise<Modifier> {
+		return await this.client.send<WalletWithdrawParams, WalletWithdrawResult, Modifier>(
 			'/private/withdraw',
 			['wallet:read_write'],
 			params,

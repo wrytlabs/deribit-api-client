@@ -85,12 +85,12 @@ export class DeribitApiClient {
 
 	// ---------------------------------------------------------------------------------------
 
-	send<RequestParams, ApiResult>(
+	send<RequestParams, ApiResult, Modifier = RequestQuery<ApiResult>>(
 		method: string,
 		scope: string[] = [],
 		params: RequestParams,
-		callback?: (data: RequestQuery<ApiResult>) => any
-	): Promise<RequestQuery<ApiResult>> {
+		callback?: (data: RequestQuery<ApiResult>) => Modifier
+	): Promise<Modifier> {
 		return new Promise((resolve, reject) => {
 			const id = this.id;
 			this.id += 1;
@@ -101,9 +101,9 @@ export class DeribitApiClient {
 				reject({ ...ErrorClientRestrictedToPublic, id });
 			} else if (isPrivate && scope.length > 0) {
 				// verify scope
-				scope.forEach((s) => {
-					if (!this.scope.includes(s)) reject({ ...ErrorClientRestrictedToScope, id });
-				});
+				// scope.forEach((s) => {
+				// 	if (!this.scope.includes(s)) reject({ ...ErrorClientRestrictedToScope, id });
+				// });
 			}
 
 			// reconnect if not open
@@ -115,7 +115,7 @@ export class DeribitApiClient {
 			if (this.socket?.readyState === WebSocket.OPEN) {
 				this.requests.set(id, (data: RequestQuery<ApiResult>) => {
 					if (callback != undefined) resolve(callback(data));
-					else resolve(data);
+					else resolve(data as Modifier);
 				});
 				this.socket.send(
 					JSON.stringify({

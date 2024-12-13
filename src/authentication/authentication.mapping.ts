@@ -9,11 +9,11 @@ export class AuthenticationMapping {
 		this.client = _connector;
 	}
 
-	public async auth(
+	public async auth<Modifier = RequestQuery<AuthenticationAuthResult>>(
 		params: AuthenticationAuthParams,
-		modifier?: ((data: RequestQuery<AuthenticationAuthResult>) => any) | undefined
-	): Promise<RequestQuery<AuthenticationAuthResult>> {
-		return await this.client.send<AuthenticationAuthParams, AuthenticationAuthResult>(
+		modifier?: ((data: RequestQuery<AuthenticationAuthResult>) => Modifier) | undefined
+	): Promise<Modifier> {
+		return await this.client.send<AuthenticationAuthParams, AuthenticationAuthResult, Modifier>(
 			'/public/auth',
 			undefined,
 			params,
