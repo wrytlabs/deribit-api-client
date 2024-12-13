@@ -1,10 +1,12 @@
-import { PublicMapping } from '../public/public.mapping';
-import { RequestQuery, DeribitApiClientOptions, DeribitApiGrantType } from './DeribitApiClient.types';
+import { WalletMapping } from '../wallet/wallet.mapping';
+import { AuthenticationMapping } from '../authentication/authentication.mapping';
+import { RequestQuery, DeribitApiClientOptions, DeribitApiGrantType } from './client.types';
 
 export class DeribitApiClient {
 	// class extentions
-	private readonly public: PublicMapping;
-	// private readonly private: PrivateMapping;
+	public readonly type: DeribitApiGrantType;
+	public readonly authentication: AuthenticationMapping;
+	public readonly wallet: WalletMapping;
 
 	// ---------------------------------------------------------------------------------------
 
@@ -17,7 +19,9 @@ export class DeribitApiClient {
 	// ---------------------------------------------------------------------------------------
 
 	constructor(options: DeribitApiClientOptions) {
-		this.public = new PublicMapping(this);
+		this.type = options.type;
+		this.authentication = new AuthenticationMapping(this);
+		this.wallet = new WalletMapping(this);
 
 		this.socket = undefined;
 		this.options = options;
@@ -52,7 +56,7 @@ export class DeribitApiClient {
 		// auto auth
 		this.socket.onopen = (event) => {
 			if (this.options.type === DeribitApiGrantType.client_credentials) {
-				this.public
+				this.authentication
 					.auth({
 						client_id: this.options.clientId,
 						client_secret: this.options.clientSecret,

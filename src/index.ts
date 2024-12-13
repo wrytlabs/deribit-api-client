@@ -1,5 +1,5 @@
-import { DeribitApiClient } from './client/DeribitApiClient';
-import { DeribitApiClientOptions } from './client/DeribitApiClient.types';
+import { DeribitApiClient } from './client/client';
+import { DeribitApiClientOptions } from './client/client.types';
 
 // function exports
 export function createDeribitClient(options: DeribitApiClientOptions): DeribitApiClient {
@@ -7,5 +7,5 @@ export function createDeribitClient(options: DeribitApiClientOptions): DeribitAp
 }
 
 // type exports
-export * from './client/DeribitApiClient.types';
-export * from './public/public.auth';
+export * from './client/client.types';
+export * from './authentication/public.auth';

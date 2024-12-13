@@ -1,4 +1,4 @@
-import { DeribitApiGrantType } from '../client/DeribitApiClient.types';
+import { DeribitApiGrantType } from '../client/client.types';
 
 export type ApiPublicAuthParams = {
 	grant_type: DeribitApiGrantType.client_credentials;
