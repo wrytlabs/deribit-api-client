@@ -1,10 +1,14 @@
 import { Currency } from '../client/general.types';
 
+// ---------------------------------------------------------------------------------------
+
 export type WalletGetDepositsParams = {
 	currency: Currency;
 	count?: number;
 	offset?: number;
 };
+
+// ---------------------------------------------------------------------------------------
 
 export type WalletGetDepositsResult = {
 	count: number;

@@ -15,6 +15,7 @@ export class AuthenticationMapping {
 	): Promise<RequestQuery<AuthenticationAuthResult>> {
 		return await this.client.send<AuthenticationAuthParams, AuthenticationAuthResult>(
 			'/public/auth',
+			undefined,
 			params,
 			modifier
 		);

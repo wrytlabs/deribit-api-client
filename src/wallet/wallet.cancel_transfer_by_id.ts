@@ -2,32 +2,27 @@ import { Currency } from '../client/general.types';
 
 // ---------------------------------------------------------------------------------------
 
-export type WalletGetTransfersParams = {
+export type WalletCancelTransferByIdParams = {
 	currency: Currency;
-	count?: number;
-	offset?: number;
+	id: number;
+	__scope: 'wallet:read_write';
 };
 
 // ---------------------------------------------------------------------------------------
 
-export type WalletGetTransfersResult = {
-	count: number;
-	data: WalletGetTransfersResultItem[];
-};
-
-export type WalletGetTransfersResultItem = {
+export type WalletCancelTransferByIdResult = {
 	amount: number;
 	created_timestamp: number;
-	currency: string;
+	currency: Currency;
 	direction: string;
 	id: number;
 	other_side: string;
-	state: WalletGetTransfersResultState;
-	type: string;
+	state: WalletCancelTransferByIdResultState;
+	type: string; // TODO: extend type to TransferUser Or TransferSubaccount
 	updated_timestamp: number;
 };
 
-export enum WalletGetTransfersResultState {
+export enum WalletCancelTransferByIdResultState {
 	prepared = 'prepared',
 	confirmed = 'confirmed',
 	cancelled = 'cancelled',

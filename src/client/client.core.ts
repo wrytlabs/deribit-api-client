@@ -1,6 +1,12 @@
-import { WalletMapping } from '../wallet/wallet.mapping';
-import { AuthenticationMapping } from '../authentication/authentication.mapping';
 import { RequestQuery, ClientOptions, GrantType } from './client.types';
+import { AuthenticationMapping } from '../authentication/authentication.mapping';
+import { WalletMapping } from '../wallet/wallet.mapping';
+import {
+	ErrorClientNotReady,
+	ErrorClientRestrictedToPublic,
+	ErrorClientRequestTimeout,
+	ErrorClientRestrictedToScope,
+} from './client.error';
 
 export class DeribitApiClient {
 	// class extentions
@@ -11,8 +17,9 @@ export class DeribitApiClient {
 	// ---------------------------------------------------------------------------------------
 
 	// core features
-	private options: ClientOptions;
 	private socket: WebSocket | undefined;
+	private options: ClientOptions;
+	private scope: string[];
 	private requests: Map<number, Function>;
 	private id: number;
 
@@ -25,6 +32,7 @@ export class DeribitApiClient {
 
 		this.socket = undefined;
 		this.options = options;
+		this.scope = [];
 		this.requests = new Map();
 		this.id = 0;
 		this.connect();
@@ -66,7 +74,8 @@ export class DeribitApiClient {
 						if ('error' in data) {
 							console.log(data.error);
 						} else {
-							console.log(data.result.scope);
+							this.scope = data.result.scope.split(' ');
+							console.log(this.scope);
 						}
 					})
 					.catch(console.log);
@@ -78,26 +87,22 @@ export class DeribitApiClient {
 
 	send<RequestParams, ApiResult>(
 		method: string,
+		scope: string[] = [],
 		params: RequestParams,
 		callback?: (data: RequestQuery<ApiResult>) => any
 	): Promise<RequestQuery<ApiResult>> {
 		return new Promise((resolve, reject) => {
-			const requestId = this.id;
+			const id = this.id;
 			this.id += 1;
 
 			// check if auth is needed
-			if (method.split('/').includes('private') && this.type === GrantType.client_public) {
-				reject({
-					jsonrpc: '2.0',
-					id: requestId,
-					error: {
-						code: -3,
-						message: 'Public Client can not make private calls',
-					},
-					testnet: false,
-					usDiff: 0,
-					usIn: 0,
-					usOut: 0,
+			const isPrivate = method.split('/').includes('private');
+			if (isPrivate && this.type === GrantType.client_public) {
+				reject({ ...ErrorClientRestrictedToPublic, id });
+			} else if (isPrivate && scope.length > 0) {
+				// verify scope
+				scope.forEach((s) => {
+					if (!this.scope.includes(s)) reject({ ...ErrorClientRestrictedToScope, id });
 				});
 			}
 
@@ -108,48 +113,22 @@ export class DeribitApiClient {
 
 			// action if open
 			if (this.socket?.readyState === WebSocket.OPEN) {
-				this.requests.set(requestId, (data: RequestQuery<ApiResult>) => {
+				this.requests.set(id, (data: RequestQuery<ApiResult>) => {
 					if (callback != undefined) resolve(callback(data));
 					else resolve(data);
 				});
 				this.socket.send(
 					JSON.stringify({
 						jsonrpc: '2.0',
-						id: requestId,
+						id,
 						method,
 						params,
 					})
 				);
-				setTimeout(
-					() =>
-						reject({
-							jsonrpc: '2.0',
-							id: requestId,
-							error: {
-								code: -2,
-								message: 'Client Timeout',
-							},
-							testnet: false,
-							usDiff: 0,
-							usIn: 0,
-							usOut: 0,
-						}),
-					10000
-				);
+				setTimeout(() => reject({ ...ErrorClientRequestTimeout, id }), 10000);
 			} else {
 				// reject if not open
-				reject({
-					jsonrpc: '2.0',
-					id: requestId,
-					error: {
-						code: -1,
-						message: 'Client Not Ready',
-					},
-					testnet: false,
-					usDiff: 0,
-					usIn: 0,
-					usOut: 0,
-				});
+				reject({ ...ErrorClientNotReady, id });
 			}
 		});
 	}

@@ -1,10 +1,14 @@
 import { GrantType } from '../client/client.types';
 
+// ---------------------------------------------------------------------------------------
+
 export type AuthenticationAuthParams = {
 	grant_type: GrantType.client_credentials;
 	client_id: string;
 	client_secret: string;
 };
+
+// ---------------------------------------------------------------------------------------
 
 export type AuthenticationAuthResult = {
 	access_token: string;

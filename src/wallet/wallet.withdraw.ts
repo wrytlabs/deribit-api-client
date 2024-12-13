@@ -2,20 +2,26 @@ import { Currency } from '../client/general.types';
 
 // ---------------------------------------------------------------------------------------
 
-export type WalletGetWithdrawalsParams = {
+export type WalletWithdrawParams = {
 	currency: Currency;
-	count?: number;
-	offset?: number;
+	address: string;
+	amount: number;
+	priority?: WalletWithdrawParamsPriority;
 };
+
+export enum WalletWithdrawParamsPriority {
+	insane = 'insane',
+	extreme_high = 'extreme_high',
+	very_high = 'very_high',
+	high = 'high',
+	mid = 'mid',
+	low = 'low',
+	very_low = 'very_low',
+}
 
 // ---------------------------------------------------------------------------------------
 
-export type WalletGetWithdrawalsResult = {
-	count: number;
-	data: WalletGetWithdrawalsResultItem[];
-};
-
-export type WalletGetWithdrawalsResultItem = {
+export type WalletWithdrawResult = {
 	address: string;
 	amount: number;
 	confirmed_timestamp: number;
@@ -24,12 +30,12 @@ export type WalletGetWithdrawalsResultItem = {
 	fee: number;
 	id: number;
 	priority: number;
-	state: WalletGetWithdrawalsResultState;
+	state: WalletWithdrawResultState;
 	transaction_id: string;
 	updated_timestamp: number;
 };
 
-export enum WalletGetWithdrawalsResultState {
+export enum WalletWithdrawResultState {
 	unconfirmed = 'unconfirmed',
 	confirmed = 'confirmed',
 	cancelled = 'cancelled',
