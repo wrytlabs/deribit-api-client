@@ -7,5 +7,8 @@ export function createDeribitClient(options: DeribitApiClientOptions): DeribitAp
 }
 
 // type exports
+export * from './client/general.types';
 export * from './client/client.types';
 export * from './authentication/authentication.auth';
+export * from './wallet/wallet.get_deposits';
+export * from './wallet/wallet.get_transfers';
