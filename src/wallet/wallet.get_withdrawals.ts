@@ -1,6 +1,13 @@
 import { Currency } from '../client/general.types';
 
-// unconfirmed, confirmed, cancelled, completed, interrupted, rejected
+export enum ApiWalletGetWithdrawalsResultState {
+	unconfirmed,
+	confirmed,
+	cancelled,
+	completed,
+	interrupted,
+	rejected,
+}
 
 export type ApiWalletGetWithdrawalsParams = {
 	currency: Currency;
@@ -22,7 +29,7 @@ export type ApiWalletGetWithdrawalsResultItem = {
 	fee: number;
 	id: number;
 	priority: number;
-	state: string;
+	state: ApiWalletGetWithdrawalsResultState;
 	transaction_id: string;
 	updated_timestamp: number;
 };

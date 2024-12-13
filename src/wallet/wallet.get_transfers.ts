@@ -1,5 +1,14 @@
 import { Currency } from '../client/general.types';
 
+export enum ApiWalletGetTransfersResultState {
+	prepared,
+	confirmed,
+	cancelled,
+	waiting_for_admin,
+	insufficient_funds,
+	withdrawal_limit,
+}
+
 export type ApiWalletGetTransfersParams = {
 	currency: Currency;
 	count?: number;
@@ -18,7 +27,7 @@ export type ApiWalletGetTransfersResultItem = {
 	direction: string;
 	id: number;
 	other_side: string;
-	state: string;
+	state: ApiWalletGetTransfersResultState;
 	type: string;
 	updated_timestamp: number;
 };

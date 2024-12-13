@@ -85,6 +85,22 @@ export class DeribitApiClient {
 			const requestId = this.id;
 			this.id += 1;
 
+			// check if auth is needed
+			if (method.split('/').includes('private') && this.type === DeribitApiGrantType.client_public) {
+				reject({
+					jsonrpc: '2.0',
+					id: requestId,
+					error: {
+						code: -3,
+						message: 'Public Client can not make private calls',
+					},
+					testnet: false,
+					usDiff: 0,
+					usIn: 0,
+					usOut: 0,
+				});
+			}
+
 			// reconnect if not open
 			if (this.socket?.readyState !== WebSocket.OPEN) {
 				this.connect();
@@ -110,8 +126,8 @@ export class DeribitApiClient {
 							jsonrpc: '2.0',
 							id: requestId,
 							error: {
-								code: this.socket?.readyState || 0,
-								message: 'WebSocket timeout',
+								code: -2,
+								message: 'Client Timeout',
 							},
 							testnet: false,
 							usDiff: 0,
@@ -126,8 +142,8 @@ export class DeribitApiClient {
 					jsonrpc: '2.0',
 					id: requestId,
 					error: {
-						code: this.socket?.readyState || 0,
-						message: 'WebSocket not open',
+						code: -1,
+						message: 'Client Not Ready',
 					},
 					testnet: false,
 					usDiff: 0,
