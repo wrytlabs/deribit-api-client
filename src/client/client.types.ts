@@ -40,6 +40,7 @@ export type RequestQueryError = {
 	id: number;
 	error: {
 		code: number;
+		data?: any;
 		message: string;
 	};
 	testnet: boolean;

@@ -3,6 +3,10 @@ import { RequestQuery } from '../client/client.types';
 import { WalletCancelTransferByIdParams, WalletCancelTransferByIdResult } from './wallet.cancel_transfer_by_id';
 import { WalletCancelWithdrawalParams, WalletCancelWithdrawalResult } from './wallet.cancel_withdrawal';
 import { WalletCreateDepositAddressParams, WalletCreateDepositAddressResult } from './wallet.create_deposit_address';
+import {
+	WalletGetCurrentDepositAddressParams,
+	WalletGetCurrentDepositAddressResult,
+} from './wallet.get_current_deposit_address';
 import { WalletGetDepositsParams, WalletGetDepositsResult } from './wallet.get_deposits';
 import { WalletGetTransfersParams, WalletGetTransfersResult } from './wallet.get_transfers';
 import { WalletGetWithdrawalsParams, WalletGetWithdrawalsResult } from './wallet.get_withdrawals';
@@ -44,8 +48,20 @@ export class WalletMapping {
 		modifier?: ((data: RequestQuery<WalletCreateDepositAddressResult>) => any) | undefined
 	): Promise<RequestQuery<WalletCreateDepositAddressResult>> {
 		return await this.client.send<WalletCreateDepositAddressParams, WalletCreateDepositAddressResult>(
-			'/private/wallet.create_deposit_address',
+			'/private/create_deposit_address',
 			['wallet:read_write'],
+			params,
+			modifier
+		);
+	}
+
+	public async getCurrentDepositaddress(
+		params: WalletGetCurrentDepositAddressParams,
+		modifier?: ((data: RequestQuery<WalletGetCurrentDepositAddressResult>) => any) | undefined
+	): Promise<RequestQuery<WalletGetCurrentDepositAddressResult>> {
+		return await this.client.send<WalletGetCurrentDepositAddressParams, WalletGetCurrentDepositAddressResult>(
+			'/private/get_current_deposit_address',
+			['wallet:read'],
 			params,
 			modifier
 		);
@@ -57,7 +73,7 @@ export class WalletMapping {
 	): Promise<RequestQuery<WalletGetDepositsResult>> {
 		return await this.client.send<WalletGetDepositsParams, WalletGetDepositsResult>(
 			'/private/get_deposits',
-			undefined,
+			['wallet:read'],
 			params,
 			modifier
 		);
@@ -69,7 +85,7 @@ export class WalletMapping {
 	): Promise<RequestQuery<WalletGetTransfersResult>> {
 		return await this.client.send<WalletGetTransfersParams, WalletGetTransfersResult>(
 			'/private/get_transfers',
-			undefined,
+			['wallet:read'],
 			params,
 			modifier
 		);
@@ -81,7 +97,7 @@ export class WalletMapping {
 	): Promise<RequestQuery<WalletGetWithdrawalsResult>> {
 		return await this.client.send<WalletGetWithdrawalsParams, WalletGetWithdrawalsResult>(
 			'/private/get_withdrawals',
-			undefined,
+			['wallet:read'],
 			params,
 			modifier
 		);
@@ -93,7 +109,7 @@ export class WalletMapping {
 	): Promise<RequestQuery<WalletWithdrawResult>> {
 		return await this.client.send<WalletWithdrawParams, WalletWithdrawResult>(
 			'/private/withdraw',
-			undefined,
+			['wallet:read_write'],
 			params,
 			modifier
 		);
