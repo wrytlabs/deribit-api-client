@@ -1,5 +1,6 @@
-import { DeribitApiClient } from '../client/client';
+import { DeribitApiClient } from '../client/client.core';
 import { RequestQuery } from '../client/client.types';
+import { ApiWalletGetTransfersParams, ApiWalletGetTransfersResult } from './wallet.get_transfers';
 
 export class WalletMapping {
 	private readonly client: DeribitApiClient;
@@ -8,10 +9,10 @@ export class WalletMapping {
 		this.client = _connector;
 	}
 
-	//public async auth(
-	// 	params: ApiPublicAuthParams,
-	// 	modifier?: ((data: RequestQuery<ApiPublicAuthResult>) => any) | undefined
-	// ): Promise<RequestQuery<ApiPublicAuthResult>> {
-	// 	return await this.client.send<ApiPublicAuthParams, ApiPublicAuthResult>('/public/auth', params, modifier);
-	// }
+	public async getTransfer(
+		params: ApiWalletGetTransfersParams,
+		modifier?: ((data: RequestQuery<ApiWalletGetTransfersResult>) => any) | undefined
+	): Promise<RequestQuery<ApiWalletGetTransfersResult>> {
+		return await this.client.send<ApiWalletGetTransfersParams, ApiWalletGetTransfersResult>('/private/get_transfers', params, modifier);
+	}
 }

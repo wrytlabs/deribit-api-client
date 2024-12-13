@@ -1,6 +1,6 @@
-import { DeribitApiClient } from '../client/client';
+import { DeribitApiClient } from '../client/client.core';
 import { RequestQuery } from '../client/client.types';
-import { ApiPublicAuthParams, ApiPublicAuthResult } from './public.auth';
+import { ApiAuthenticationAuthParams, ApiAuthenticationAuthResult } from './authentication.auth';
 
 export class AuthenticationMapping {
 	private readonly client: DeribitApiClient;
@@ -10,9 +10,9 @@ export class AuthenticationMapping {
 	}
 
 	public async auth(
-		params: ApiPublicAuthParams,
-		modifier?: ((data: RequestQuery<ApiPublicAuthResult>) => any) | undefined
-	): Promise<RequestQuery<ApiPublicAuthResult>> {
-		return await this.client.send<ApiPublicAuthParams, ApiPublicAuthResult>('/public/auth', params, modifier);
+		params: ApiAuthenticationAuthParams,
+		modifier?: ((data: RequestQuery<ApiAuthenticationAuthResult>) => any) | undefined
+	): Promise<RequestQuery<ApiAuthenticationAuthResult>> {
+		return await this.client.send<ApiAuthenticationAuthParams, ApiAuthenticationAuthResult>('/public/auth', params, modifier);
 	}
 }

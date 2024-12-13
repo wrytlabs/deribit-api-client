@@ -1,17 +1,17 @@
 import { Currency } from '../client/general.types';
 
-export type ApiPrivateGetTransfersParams = {
+export type ApiWalletGetTransfersParams = {
 	currency: Currency;
 	count?: number;
 	offset?: number;
 };
 
-export type ApiPrivateGetTransfersResult = {
+export type ApiWalletGetTransfersResult = {
 	count: number;
-	data: ApiPrivateGetTransfersResultItem[];
+	data: ApiWalletGetTransfersResultItem[];
 };
 
-export type ApiPrivateGetTransfersResultItem = {
+export type ApiWalletGetTransfersResultItem = {
 	amount: number;
 	created_timestamp: number;
 	currency: string;

@@ -1,4 +1,4 @@
-import { DeribitApiClient } from './client/client';
+import { DeribitApiClient } from './client/client.core';
 import { DeribitApiClientOptions } from './client/client.types';
 
 // function exports
@@ -8,4 +8,4 @@ export function createDeribitClient(options: DeribitApiClientOptions): DeribitAp
 
 // type exports
 export * from './client/client.types';
-export * from './authentication/public.auth';
+export * from './authentication/authentication.auth';

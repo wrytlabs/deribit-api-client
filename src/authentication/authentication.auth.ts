@@ -1,12 +1,12 @@
 import { DeribitApiGrantType } from '../client/client.types';
 
-export type ApiPublicAuthParams = {
+export type ApiAuthenticationAuthParams = {
 	grant_type: DeribitApiGrantType.client_credentials;
 	client_id: string;
 	client_secret: string;
 };
 
-export type ApiPublicAuthResult = {
+export type ApiAuthenticationAuthResult = {
 	access_token: string;
 	enabled_features: string[];
 	expires_in: string;
