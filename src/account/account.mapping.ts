@@ -4,6 +4,7 @@ import { GetAccountSummariesParams, GetAccountSummariesResult } from './account.
 import { GetAccountSummaryParams, GetAccountSummaryResult } from './account.get_account_summary';
 import { AccountGetPortfolioMarginsParams, AccountGetPortfolioMarginsResult } from './account.get_portfolio_margins';
 import { GetPositionParams, GetPositionResult } from './account.get_position';
+import { GetTransactionLogParams, GetTransactionLogResult } from './account.get_transaction_log';
 
 export class AccountMapping {
 	private readonly client: DeribitApiClient;
@@ -18,7 +19,7 @@ export class AccountMapping {
 	): Promise<Modifier> {
 		return await this.client.send<GetAccountSummariesParams, GetAccountSummariesResult, Modifier>(
 			'/private/get_account_summaries',
-			[],
+			['account:read'],
 			params,
 			modifier
 		);
@@ -30,7 +31,7 @@ export class AccountMapping {
 	): Promise<Modifier> {
 		return await this.client.send<GetAccountSummaryParams, GetAccountSummaryResult, Modifier>(
 			'/private/get_account_summary',
-			[],
+			['account:read'],
 			params,
 			modifier
 		);
@@ -42,7 +43,7 @@ export class AccountMapping {
 	): Promise<Modifier> {
 		return await this.client.send<AccountGetPortfolioMarginsParams, AccountGetPortfolioMarginsResult, Modifier>(
 			'/private/get_portfolio_margins',
-			[],
+			['account:read'],
 			params,
 			modifier
 		);
@@ -54,7 +55,19 @@ export class AccountMapping {
 	): Promise<Modifier> {
 		return await this.client.send<GetPositionParams, GetPositionResult, Modifier>(
 			'/private/get_position',
-			[],
+			['account:read'],
+			params,
+			modifier
+		);
+	}
+
+	public async getTransactionLog<Modifier = RequestQuery<GetTransactionLogResult>>(
+		params: GetTransactionLogParams,
+		modifier?: ((data: RequestQuery<GetTransactionLogResult>) => Modifier) | undefined
+	): Promise<Modifier> {
+		return await this.client.send<GetTransactionLogParams, GetTransactionLogResult, Modifier>(
+			'/private/get_transaction_log',
+			['account:read'],
 			params,
 			modifier
 		);
