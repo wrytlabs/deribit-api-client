@@ -59,9 +59,9 @@ export class DeribitApiClient {
 		// create
 		this.socket = new WebSocket(this.options.baseUrl);
 
-		// reconnect after 5 seconds
+		// reconnect after 60 seconds
 		this.socket.onclose = () => {
-			setTimeout(() => this.connect(), 5000);
+			setTimeout(() => this.connect(), 60000);
 		};
 
 		// handle message and callback
@@ -90,7 +90,6 @@ export class DeribitApiClient {
 							console.log(data.error);
 						} else {
 							this.scope = data.result.scope.split(' ');
-							console.log(this.scope);
 						}
 					})
 					.catch(console.log);

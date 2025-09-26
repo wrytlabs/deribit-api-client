@@ -12,8 +12,10 @@ export function createDeribitClientPublic(options?: ClientPublicOptions): Deribi
 }
 
 // type exports
-export * from './client/general.types';
+export * from './client/client.core';
+export * from './client/client.error';
 export * from './client/client.types';
+export * from './client/general.types';
 
 export * from './account/account.get_account_summaries';
 export * from './account/account.get_account_summary';
